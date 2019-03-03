@@ -8,16 +8,22 @@ public class binscript2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Invoke("hide", 2f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (time > 120)
-        {
-            gameObject.SetActive(false);
-        }
-        time++;
+
+    }
+
+    void hide()
+    {
+        gameObject.SetActive(false);
+    }
+
+    void show()
+    {
+        gameObject.SetActive(true);
     }
 }
