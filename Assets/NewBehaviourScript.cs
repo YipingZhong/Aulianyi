@@ -16,7 +16,7 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        c = Color.Lerp(Color.blue, Color.green, time1/120);
+        c = Color.Lerp(Color.blue, Color.cyan, time1/120);
         gameObject.GetComponent<Renderer>().material.color = c;
         print(time1);
         if (time1 < 120)
