@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class boutscript : MonoBehaviour
+public class breatheOut : MonoBehaviour
 {
     int time = 0;
     // Start is called before the first frame update

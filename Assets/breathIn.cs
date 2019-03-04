@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class binscript2 : MonoBehaviour
+public class breatheIn : MonoBehaviour
 {
     int time = 0;
     // Start is called before the first frame update
