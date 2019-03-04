@@ -9,7 +9,7 @@ public class breatheOut : MonoBehaviour
     void Start()
     {
         Invoke("hide", 0f);
-        Invoke("show", 2f);
+        Invoke("show", 7f);
     }
 
     // Update is called once per frame

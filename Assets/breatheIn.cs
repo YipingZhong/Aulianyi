@@ -8,7 +8,7 @@ public class breatheIn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("hide", 2f);
+        Invoke("hide", 7f);
     }
 
     // Update is called once per frame
