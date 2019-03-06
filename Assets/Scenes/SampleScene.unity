@@ -419,18 +419,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de33c68f3ca1b6c4aaa6a27838ae4f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  time1: 0
-  c:
-    r: 0
-    g: 0
-    b: 1
-    a: 1
 --- !u!135 &812433059
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -498,7 +486,7 @@ Transform:
   m_GameObject: {fileID: 812433057}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.526371, y: 5.526371, z: 5.526371}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -706,13 +694,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d7b80f95e0b442a80ffa73b39253c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  time: 0
 --- !u!1 &1513882516
 GameObject:
   m_ObjectHideFlags: 0
