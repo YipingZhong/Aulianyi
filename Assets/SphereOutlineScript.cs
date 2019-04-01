@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SphereScript : MonoBehaviour
+public class SphereOutlineScript : MonoBehaviour
 {
     private Animator anim;
 
@@ -19,7 +19,7 @@ public class SphereScript : MonoBehaviour
         {
             if (null != anim)
             {
-                anim.Play("Looping", 0, 0f);
+                anim.Play("OutlineLooping", 0, 0f);
             }
         }
     }
