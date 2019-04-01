@@ -415,6 +415,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a384a5786da67064ab646028f10a3580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Sphere: {fileID: 812433057}
+  SphereOutline: {fileID: 1221881672}
 --- !u!4 &790480762
 Transform:
   m_ObjectHideFlags: 0
