@@ -10,13 +10,17 @@
 
 [Bb]uild
 
+[Bb]uilds
+
+Logs
+
 /[Ll]ibrary/
 
 sysinfo.txt
 
 *.stackdump
 
- 
+
 
 # ============================================= #
 
@@ -46,7 +50,7 @@ sysinfo.txt
 
 /.idea*/
 
- 
+
 
 # ============ #
 
