@@ -27,7 +27,6 @@ public class TouchHandler : MonoBehaviour
         sphereanim = Sphere.GetComponent<Animator>();
         outlineanim = SphereOutline.GetComponent<Animator>();
         breatheText = BreatheText.GetComponent<TMP_Text>();
-        breatheText.text = "Touch to start";
         //breatheText.alignment = TextAnchor.MiddleCenter;
     }
 
