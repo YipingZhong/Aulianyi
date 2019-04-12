@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 1059847854}
   - component: {fileID: 1059847858}
   m_Layer: 0
-  m_Name: Testing Sphere 1
+  m_Name: Galaxy Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -387,7 +387,7 @@ GameObject:
   - component: {fileID: 2046546137}
   - component: {fileID: 2046546136}
   m_Layer: 0
-  m_Name: Testing Plane 1
+  m_Name: StarrySpace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
