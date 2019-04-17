@@ -14,23 +14,20 @@ public class TouchHandler : MonoBehaviour
     Vector3 fp = Vector3.zero;
     Vector2 lp;
 
-    float speed = 10.0f;
+    float speed = 4.0f;
     bool moving = false;
 
     int currentScreen = 1;
         
-        float dragDistance = Screen.height * 0.2f;
-    // Start is called before the first frame update
+    // value to modify for minimum drag distance to be a swipe
+    float dragDistance = Screen.height * 0.2f;
+
     void Start()
     {
         
     }
 
     void Awake() {
-        // sphereanim = Sphere.GetComponent<Animator>();
-        // outlineanim = SphereOutline.GetComponent<Animator>();
-        // breatheText = BreatheText.GetComponent<TMP_Text>();
-        // //breatheText.alignment = TextAnchor.MiddleCenter;
         mainCamera = cam.GetComponent<Camera>();
     }
 
@@ -58,14 +55,14 @@ public class TouchHandler : MonoBehaviour
                         if (lp.x > fp.x) {   //Right swipe
                             Debug.Log("Right Swipe");
                             if(currentScreen > 0) {
-                                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(-30,0,0);
+                                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(-23,0,0);
                                 moving = true;
                                 currentScreen--;
                             }
                         } else {   //Left swipe
                             Debug.Log("Left Swipe"); 
                             if(currentScreen < 2) {
-                                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(30,0,0);
+                                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(23,0,0);
                                 moving = true;
                                 currentScreen++;
                             }
