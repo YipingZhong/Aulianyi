@@ -6,17 +6,20 @@ using TMPro;
 
 public class TouchHandler : MonoBehaviour
 {
-    public GameObject Sphere;
-    public GameObject SphereOutline;
-    public GameObject BreatheText;
+    public GameObject cam;
+    public GameObject cameraEndPosition;
 
-    Animator sphereanim;
-    Animator outlineanim;
-    TMP_Text breatheText;
+    Camera mainCamera;
 
-    float cycleTime = 14f;
-    float counter = 0f;
+    Vector3 fp = Vector3.zero;
+    Vector2 lp;
 
+    float speed = 10.0f;
+    bool moving = false;
+
+    int currentScreen = 1;
+        
+        float dragDistance = Screen.height * 0.2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,51 +27,65 @@ public class TouchHandler : MonoBehaviour
     }
 
     void Awake() {
-        sphereanim = Sphere.GetComponent<Animator>();
-        outlineanim = SphereOutline.GetComponent<Animator>();
-        breatheText = BreatheText.GetComponent<TMP_Text>();
-        //breatheText.alignment = TextAnchor.MiddleCenter;
+        // sphereanim = Sphere.GetComponent<Animator>();
+        // outlineanim = SphereOutline.GetComponent<Animator>();
+        // breatheText = BreatheText.GetComponent<TMP_Text>();
+        // //breatheText.alignment = TextAnchor.MiddleCenter;
+        mainCamera = cam.GetComponent<Camera>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        int nbTouches = Input.touchCount;
- 
-        if(nbTouches > 0)
-        {
-            for (int i = 0; i < nbTouches; i++)
-            {
-                Touch touch = Input.GetTouch(i);
- 
-                if(touch.phase == TouchPhase.Ended) {
-                    counter = 0;
-                    StartCoroutine("breathe");
-                    sphereanim.Play("Looping",0,0f);
-                    outlineanim.Play("OutlineLooping",0,0f);
+        // if ((mainCamera.transform.position.x - .001) < cameraEndPosition.transform.position.x && cameraEndPosition.transform.position.x < (mainCamera.transform.position.x + .001))
+        //     moving = false;
+
+        //https://gist.github.com/cuibonobo/09709c38b218e1f3fd0d
+        foreach (Touch touch in Input.touches) {
+            if (touch.phase == TouchPhase.Began) {
+                fp = touch.position;
+                lp = touch.position;
+            }
+            if (touch.phase == TouchPhase.Ended){
+                lp = touch.position;
+                
+                float xDistance = Mathf.Abs(lp.x - fp.x);
+                float yDistance = Mathf.Abs(lp.y - fp.y);
+                
+                if (xDistance > dragDistance || yDistance > dragDistance){
+                    // Check if the horizontal movement is greater than the vertical movement
+                    if (xDistance > yDistance){
+                        if (lp.x > fp.x) {   //Right swipe
+                            Debug.Log("Right Swipe");
+                            if(currentScreen > 0) {
+                                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(-30,0,0);
+                                moving = true;
+                                currentScreen--;
+                            }
+                        } else {   //Left swipe
+                            Debug.Log("Left Swipe"); 
+                            if(currentScreen < 2) {
+                                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(30,0,0);
+                                moving = true;
+                                currentScreen++;
+                            }
+                        }
+                    } 
+                } else {
+                    // That was a tap!
                 }
             }
+            // Just do the one touch for now...
+            break;
         }
         
+
+        if(moving) {
+            float step = speed * Time.deltaTime;
+            //mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, cameraEndPosition.transform.position, step);
+            mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, cameraEndPosition.transform.position, speed * Time.deltaTime);
+        }
+
     }
 
-    IEnumerator breathe()
-    {
-        while (counter < cycleTime)
-        {
-            if (counter < cycleTime/2)
-            {
-                breatheText.text = "Breathe In";
-                breatheText.fontSize += .1f;
-            }
-            else if (counter <= cycleTime)
-            {
-                breatheText.text = "Breathe Out";
-                breatheText.fontSize -= .1f;
-            }
-            counter += Time.deltaTime;
-            yield return null;
-        }
-        
-    }
 }
