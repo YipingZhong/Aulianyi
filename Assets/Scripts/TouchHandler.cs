@@ -20,7 +20,7 @@ public class TouchHandler : MonoBehaviour
     int currentScreen = 1;
         
     // value to modify for minimum drag distance to be a swipe
-    float dragDistance = Screen.height * 0.2f;
+    float dragDistance = Screen.height * 0.15f;
 
     void Start()
     {
