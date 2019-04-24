@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 
@@ -8,13 +9,14 @@ public class TouchHandler : MonoBehaviour
 {
     public GameObject cam;
     public GameObject cameraEndPosition;
+    public Image m_Image;
 
     Camera mainCamera;
 
     Vector3 fp = Vector3.zero;
     Vector2 lp;
 
-    float speed = 4.0f;
+    float speed = 2.0f;
     bool moving = false;
 
     int currentScreen = 1;
@@ -24,7 +26,7 @@ public class TouchHandler : MonoBehaviour
 
     void Start()
     {
-        
+        m_Image.CrossFadeAlpha(0, 2f, false);
     }
 
     void Awake() {
@@ -34,8 +36,6 @@ public class TouchHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if ((mainCamera.transform.position.x - .001) < cameraEndPosition.transform.position.x && cameraEndPosition.transform.position.x < (mainCamera.transform.position.x + .001))
-        //     moving = false;
 
         //https://gist.github.com/cuibonobo/09709c38b218e1f3fd0d
         foreach (Touch touch in Input.touches) {
@@ -55,16 +55,18 @@ public class TouchHandler : MonoBehaviour
                         if (lp.x > fp.x) {   //Right swipe
                             Debug.Log("Right Swipe");
                             if(currentScreen > 0) {
-                                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(-23,0,0);
-                                moving = true;
+                                StopCoroutine(fade());
+                                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(-100,0,0);
                                 currentScreen--;
+                                StartCoroutine(fade());
                             }
                         } else {   //Left swipe
                             Debug.Log("Left Swipe"); 
                             if(currentScreen < 2) {
-                                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(23,0,0);
-                                moving = true;
+                                StopCoroutine(fade());
+                                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(100,0,0);
                                 currentScreen++;
+                                StartCoroutine(fade());
                             }
                         }
                     } 
@@ -75,14 +77,14 @@ public class TouchHandler : MonoBehaviour
             // Just do the one touch for now...
             break;
         }
-        
 
-        if(moving) {
-            float step = speed * Time.deltaTime;
-            //mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, cameraEndPosition.transform.position, step);
-            mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, cameraEndPosition.transform.position, speed * Time.deltaTime);
-        }
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, cameraEndPosition.transform.position, speed * Time.deltaTime);
 
     }
 
+    IEnumerator fade() {
+        m_Image.CrossFadeAlpha(1, 0.2f, false);
+        yield return new WaitForSeconds(0.7f);
+        m_Image.CrossFadeAlpha(0, 2f, false);
+    }
 }
