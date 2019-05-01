@@ -108,20 +108,19 @@ public class TouchHandler : MonoBehaviour
     }
 
 
-private IEnumerator CrossFadeAudio(AudioSource audioSource1, AudioSource audioSource2, float crossFadeTime, float audioSource2VolumeTarget)
-{
-    float startAudioSource1Volume = audioSource1.volume;
- 
-    audioSource2.volume = 0f;
-    audioSource2.Play();
- 
-    while (audioSource1.volume > 0f && audioSource2.volume < audioSource2VolumeTarget)
+    private IEnumerator CrossFadeAudio(AudioSource audioSource1, AudioSource audioSource2, float crossFadeTime, float audioSource2VolumeTarget)
     {
-        audioSource1.volume -= startAudioSource1Volume * Time.deltaTime / crossFadeTime;
-        audioSource2.volume += audioSource2VolumeTarget * Time.deltaTime / crossFadeTime;
-        loopCount++;
-        yield return null;
+        float startAudioSource1Volume = audioSource1.volume;
+    
+        audioSource2.volume = 0f;
+        audioSource2.Play();
+    
+        while (audioSource1.volume > 0f && audioSource2.volume < audioSource2VolumeTarget)
+        {
+            audioSource1.volume -= startAudioSource1Volume * Time.deltaTime / crossFadeTime;
+            audioSource2.volume += audioSource2VolumeTarget * Time.deltaTime / crossFadeTime;
+            yield return null;
+        }
+    
     }
- 
-}
 }
