@@ -10,6 +10,9 @@ public class TouchHandler : MonoBehaviour
     public GameObject cam;
     public GameObject cameraEndPosition;
     public Image m_Image;
+    public AudioSource song0;
+    public AudioSource song1;
+    public AudioSource song2;
 
     Camera mainCamera;
 
@@ -25,8 +28,10 @@ public class TouchHandler : MonoBehaviour
     float dragDistance = Screen.height * 0.15f;
 
     void Start()
-    {
+    {        
         m_Image.CrossFadeAlpha(0, 2f, false);
+        song0.Stop();
+        song2.Stop();
     }
 
     void Awake() {
@@ -59,6 +64,13 @@ public class TouchHandler : MonoBehaviour
                                 cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(-100,0,0);
                                 currentScreen--;
                                 StartCoroutine(fade());
+                                if (currentScreen == 0){
+                                    StartCoroutine(CrossFadeAudio(song1, song0, 2f, 1f));
+                                }
+                                else if (currentScreen == 1){
+                                    StartCoroutine(CrossFadeAudio(song2, song1, 2f, 1f));
+                                }
+
                             }
                         } else {   //Left swipe
                             Debug.Log("Left Swipe"); 
@@ -67,7 +79,14 @@ public class TouchHandler : MonoBehaviour
                                 cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(100,0,0);
                                 currentScreen++;
                                 StartCoroutine(fade());
+                                if (currentScreen == 1) {
+                                    StartCoroutine(CrossFadeAudio(song0, song1, 2f, 1f));
+                                }
+                                else if(currentScreen == 2){
+                                    StartCoroutine(CrossFadeAudio(song1, song2, 2f, 1f));
+                                }
                             }
+                            
                         }
                     } 
                 } else {
@@ -87,4 +106,21 @@ public class TouchHandler : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
         m_Image.CrossFadeAlpha(0, 2f, false);
     }
+
+
+private IEnumerator CrossFadeAudio(AudioSource audioSource1, AudioSource audioSource2, float crossFadeTime, float audioSource2VolumeTarget)
+{
+    float startAudioSource1Volume = audioSource1.volume;
+ 
+    audioSource2.volume = 0f;
+    audioSource2.Play();
+ 
+    while (audioSource1.volume > 0f && audioSource2.volume < audioSource2VolumeTarget)
+    {
+        audioSource1.volume -= startAudioSource1Volume * Time.deltaTime / crossFadeTime;
+        audioSource2.volume += audioSource2VolumeTarget * Time.deltaTime / crossFadeTime;
+        loopCount++;
+        yield return null;
+    }
+ 
 }
