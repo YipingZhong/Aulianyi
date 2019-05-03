@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//The TouchHandler can only work on phones;
 
 public class TouchHandler : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class TouchHandler : MonoBehaviour
     public AudioSource song0;
     public AudioSource song1;
     public AudioSource song2;
+    
+
 
     Camera mainCamera;
 
