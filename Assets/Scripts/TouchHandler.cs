@@ -23,7 +23,6 @@ public class TouchHandler : MonoBehaviour
     Vector2 lp;
 
     float speed = 2.0f;
-    bool moving = false;
 
     int currentScreen = 1;
         
@@ -61,33 +60,34 @@ public class TouchHandler : MonoBehaviour
                     // Check if the horizontal movement is greater than the vertical movement
                     if (xDistance > yDistance){
                         if (lp.x > fp.x) {   //Right swipe
-                            Debug.Log("Right Swipe");
                             if(currentScreen > 0) {
                                 StopCoroutine(fade());
-                                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(-100,0,0);
-                                currentScreen--;
                                 StartCoroutine(fade());
-                                if (currentScreen == 0){
-                                    StartCoroutine(CrossFadeAudio(song1, song0, 2f, 1f));
+                                if (currentScreen == 1){
+                                    cameraEndPosition.transform.position = new Vector3(-100,0,-10);
+                                    StartCoroutine(CrossFadeAudio(song1,song0,2f,1f));
                                 }
-                                else if (currentScreen == 1){
-                                    StartCoroutine(CrossFadeAudio(song2, song1, 2f, 1f));
+                                else if (currentScreen == 2){
+                                    cameraEndPosition.transform.position = new Vector3(0,0,-10);
+                                    cam.transform.Rotate(-90,0,0);
+                                    StartCoroutine(CrossFadeAudio(song2,song1,2f,1f));
                                 }
-
+                                currentScreen--;
                             }
                         } else {   //Left swipe
-                            Debug.Log("Left Swipe"); 
                             if(currentScreen < 2) {
                                 StopCoroutine(fade());
-                                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(100,0,0);
-                                currentScreen++;
                                 StartCoroutine(fade());
-                                if (currentScreen == 1) {
-                                    StartCoroutine(CrossFadeAudio(song0, song1, 2f, 1f));
+                                if (currentScreen == 0){
+                                    cameraEndPosition.transform.position = new Vector3(0,0,-10);
+                                    StartCoroutine(CrossFadeAudio(song0,song1,2f,1f));
                                 }
-                                else if(currentScreen == 2){
-                                    StartCoroutine(CrossFadeAudio(song1, song2, 2f, 1f));
+                                else if (currentScreen == 1){
+                                    cameraEndPosition.transform.position = new Vector3(100,10,-10);
+                                    cam.transform.Rotate(90,0,0);
+                                    StartCoroutine(CrossFadeAudio(song1,song2,2f,1f));
                                 }
+                                currentScreen++;
                             }
                             
                         }
