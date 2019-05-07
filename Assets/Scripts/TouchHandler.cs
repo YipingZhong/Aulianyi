@@ -19,8 +19,9 @@ public class TouchHandler : MonoBehaviour
 
     Camera mainCamera;
 
-    Vector3 fp = Vector3.zero;
+    Vector2 fp;
     Vector2 lp;
+    Vector3 originalCameraPosition;
 
     float speed = 2.0f;
 
@@ -43,18 +44,25 @@ public class TouchHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         //https://gist.github.com/cuibonobo/09709c38b218e1f3fd0d
         foreach (Touch touch in Input.touches) {
             if (touch.phase == TouchPhase.Began) {
                 fp = touch.position;
-                lp = touch.position;
+                originalCameraPosition = mainCamera.transform.position;
             }
-            if (touch.phase == TouchPhase.Ended){
+            if (touch.phase == TouchPhase.Moved) {
+                // move camera directly (no animation!)
+                // to originalCameraPosition + (touch.position.x - fp.x, 0, 0)
+                cameraEndPosition.transform.position += (touch.position.x - fp.x, 0, 0);
+            }
+            if (touch.phase == TouchPhase.Ended) {
                 lp = touch.position;
                 
                 float xDistance = Mathf.Abs(lp.x - fp.x);
                 float yDistance = Mathf.Abs(lp.y - fp.y);
+
+                // maybe it is as simple as:
+                // cameraEndPosition = originalCameraPosition;
                 
                 if (xDistance > dragDistance || yDistance > dragDistance){
                     // Check if the horizontal movement is greater than the vertical movement
