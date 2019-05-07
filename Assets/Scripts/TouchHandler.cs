@@ -22,7 +22,7 @@ public class TouchHandler : MonoBehaviour
 
     Vector2 fp;
     Vector2 lp;
-    Vector3 originalCameraPosition;
+    //Vector3 originalCameraPosition;
 
     float speed = 2.0f;
 
@@ -50,12 +50,12 @@ public class TouchHandler : MonoBehaviour
         foreach (Touch touch in Input.touches) {
             if (touch.phase == TouchPhase.Began) {
                 fp = touch.position;
-                originalCameraPosition = mainCamera.transform.position;
+                //originalCameraPosition = mainCamera.transform.position;
             }
             if (touch.phase == TouchPhase.Moved) {
                 // move camera directly (no animation!)
                 // to originalCameraPosition + (touch.position.x - fp.x, 0, 0)
-                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(-100,0,-10);
+                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(touch.position.x - fp.x,0,-10);
             }
             if (touch.phase == TouchPhase.Ended) {
                 lp = touch.position;
