@@ -74,12 +74,12 @@ public class TouchHandler : MonoBehaviour
                                 StopCoroutine(fade(m_Image));
                                 StartCoroutine(fade(m_Image));
                                 if (currentScreen == 1){
-                                    cameraEndPosition.transform.position = new Vector3(-100,0,-10);
+                                    cameraEndPosition.transform.position = new Vector3(-100,7,0);
                                     StartCoroutine(CrossFadeAudio(song1,song0,2f,1f));
                                 }
                                 else if (currentScreen == 2){
-                                    cameraEndPosition.transform.position = new Vector3(0,0,-10);
-                                    cam.transform.Rotate(-90,0,0);
+                                    cameraEndPosition.transform.position = new Vector3(0,7, 0);
+                                    //cam.transform.Rotate(-90,0,0);
                                     StartCoroutine(CrossFadeAudio(song2,song1,2f,1f));
                                 }
                                 currentScreen--;
@@ -89,12 +89,12 @@ public class TouchHandler : MonoBehaviour
                                 StopCoroutine(fade(m_Image));
                                 StartCoroutine(fade(m_Image));
                                 if (currentScreen == 0){
-                                    cameraEndPosition.transform.position = new Vector3(0,0,-10);
+                                    cameraEndPosition.transform.position = new Vector3(0,7,0);
                                     StartCoroutine(CrossFadeAudio(song0,song1,2f,1f));
                                 }
                                 else if (currentScreen == 1){
-                                    cameraEndPosition.transform.position = new Vector3(100,10,-10);
-                                    cam.transform.Rotate(90,0,0);
+                                    cameraEndPosition.transform.position = new Vector3(100,7,0);
+                                    //cam.transform.Rotate(90,0,0);
                                     StartCoroutine(CrossFadeAudio(song1,song2,2f,1f));
                                 }
                                 currentScreen++;
