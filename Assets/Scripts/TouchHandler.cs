@@ -50,6 +50,7 @@ public class TouchHandler : MonoBehaviour
         foreach (Touch touch in Input.touches) {
             if (touch.phase == TouchPhase.Began) {
                 fp = touch.position;
+                lp = touch.position;
                 //originalCameraPosition = mainCamera.transform.position;
             }
             if (touch.phase == TouchPhase.Moved) {
