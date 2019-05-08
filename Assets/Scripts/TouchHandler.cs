@@ -56,7 +56,7 @@ public class TouchHandler : MonoBehaviour
             if (touch.phase == TouchPhase.Moved) {
                 // move camera directly (no animation!)
                 float x = (fp.x - touch.position.x)/400;
-                cameraEndPosition.transform.position = cameraEndPosition.transform.position - new Vector3(x, 0,0);
+                cameraEndPosition.transform.position = cameraEndPosition.transform.position +  new Vector3(x, 0,0);
             }
             if (touch.phase == TouchPhase.Ended) {
                 lp = touch.position;
