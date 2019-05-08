@@ -34,8 +34,6 @@ public class TouchHandler : MonoBehaviour
     void Start()
     {        
         m_Image.CrossFadeAlpha(0, 2f, false);
-        song0.Stop();
-        song2.Stop();
         StartCoroutine(fadeUI());
     }
 
@@ -55,7 +53,8 @@ public class TouchHandler : MonoBehaviour
             }
             if (touch.phase == TouchPhase.Moved) {
                 // move camera directly (no animation!)
-                float x = (fp.x - touch.position.x)/400;
+                // to originalCameraPosition + (touch.position.x - fp.x, 0, 0)
+                float x = (touch.position.x - fp.x)/400;
                 cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(x, 0,0);
             }
             if (touch.phase == TouchPhase.Ended) {
