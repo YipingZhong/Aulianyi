@@ -64,8 +64,7 @@ public class TouchHandler : MonoBehaviour
                 float xDistance = Mathf.Abs(lp.x - fp.x);
                 float yDistance = Mathf.Abs(lp.y - fp.y);
 
-                // maybe it is as simple as:
-                // cameraEndPosition = originalCameraPosition;
+                cameraEndPosition.transform.position = originalCameraPosition;
                 
                 if (xDistance > dragDistance || yDistance > dragDistance){
                     // Check if the horizontal movement is greater than the vertical movement
@@ -103,10 +102,6 @@ public class TouchHandler : MonoBehaviour
                             
                         }
                     } 
-                } else {
-                    cameraEndPosition.transform.position = originalCameraPosition;
-                    // That was a tap!
-
                 }
             }
             // Just do the one touch for now...
