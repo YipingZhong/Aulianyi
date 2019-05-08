@@ -20,8 +20,9 @@ public class TouchHandler : MonoBehaviour
 
     Camera mainCamera;
 
-    Vector3 fp = Vector3.zero;
+    Vector2 fp;
     Vector2 lp;
+    //Vector3 originalCameraPosition;
 
     float speed = 2.0f;
 
@@ -50,12 +51,22 @@ public class TouchHandler : MonoBehaviour
             if (touch.phase == TouchPhase.Began) {
                 fp = touch.position;
                 lp = touch.position;
+                //originalCameraPosition = mainCamera.transform.position;
             }
-            if (touch.phase == TouchPhase.Ended){
+            if (touch.phase == TouchPhase.Moved) {
+                // move camera directly (no animation!)
+                // to originalCameraPosition + (touch.position.x - fp.x, 0, 0)
+                float x = (touch.position.x - fp.x)/10;
+                cameraEndPosition.transform.position = cameraEndPosition.transform.position + new Vector3(x, 0,-10);
+            }
+            if (touch.phase == TouchPhase.Ended) {
                 lp = touch.position;
                 
                 float xDistance = Mathf.Abs(lp.x - fp.x);
                 float yDistance = Mathf.Abs(lp.y - fp.y);
+
+                // maybe it is as simple as:
+                // cameraEndPosition = originalCameraPosition;
                 
                 if (xDistance > dragDistance || yDistance > dragDistance){
                     // Check if the horizontal movement is greater than the vertical movement
@@ -65,12 +76,12 @@ public class TouchHandler : MonoBehaviour
                                 StopCoroutine(fade(m_Image));
                                 StartCoroutine(fade(m_Image));
                                 if (currentScreen == 1){
-                                    cameraEndPosition.transform.position = new Vector3(-100,0,-10);
+                                    cameraEndPosition.transform.position = new Vector3(-100,7,0);
                                     StartCoroutine(CrossFadeAudio(song1,song0,2f,1f));
                                 }
                                 else if (currentScreen == 2){
-                                    cameraEndPosition.transform.position = new Vector3(0,0,-10);
-                                    cam.transform.Rotate(-90,0,0);
+                                    cameraEndPosition.transform.position = new Vector3(0,7, 0);
+                                    //cam.transform.Rotate(-90,0,0);
                                     StartCoroutine(CrossFadeAudio(song2,song1,2f,1f));
                                 }
                                 currentScreen--;
@@ -80,12 +91,12 @@ public class TouchHandler : MonoBehaviour
                                 StopCoroutine(fade(m_Image));
                                 StartCoroutine(fade(m_Image));
                                 if (currentScreen == 0){
-                                    cameraEndPosition.transform.position = new Vector3(0,0,-10);
+                                    cameraEndPosition.transform.position = new Vector3(0,7,0);
                                     StartCoroutine(CrossFadeAudio(song0,song1,2f,1f));
                                 }
                                 else if (currentScreen == 1){
-                                    cameraEndPosition.transform.position = new Vector3(100,10,-10);
-                                    cam.transform.Rotate(90,0,0);
+                                    cameraEndPosition.transform.position = new Vector3(100,7,0);
+                                    //cam.transform.Rotate(90,0,0);
                                     StartCoroutine(CrossFadeAudio(song1,song2,2f,1f));
                                 }
                                 currentScreen++;
