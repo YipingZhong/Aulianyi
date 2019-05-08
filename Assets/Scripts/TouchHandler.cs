@@ -22,7 +22,7 @@ public class TouchHandler : MonoBehaviour
 
     Vector2 fp;
     Vector2 lp;
-    //Vector3 originalCameraPosition;
+    Vector3 originalCameraPosition;
 
     float speed = 2.0f;
 
@@ -51,7 +51,7 @@ public class TouchHandler : MonoBehaviour
             if (touch.phase == TouchPhase.Began) {
                 fp = touch.position;
                 lp = touch.position;
-                //originalCameraPosition = mainCamera.transform.position;
+                originalCameraPosition = mainCamera.transform.position;
             }
             if (touch.phase == TouchPhase.Moved) {
                 // move camera directly (no animation!)
@@ -105,6 +105,7 @@ public class TouchHandler : MonoBehaviour
                         }
                     } 
                 } else {
+                    cameraEndPosition.transform.position = originalCameraPosition;
                     // That was a tap!
 
                 }
