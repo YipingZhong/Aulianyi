@@ -56,13 +56,13 @@ public class TouchHandler : MonoBehaviour
             }
             if (touch.phase == TouchPhase.Moved) {
                 // move camera directly (no animation!)
-                moving = true;
+                userIsDragging = true;
                 float x = (fp.x - touch.position.x)/100;
                 cameraEndPosition.transform.position = originalCameraPosition + new Vector3(x, 0,0);
             }
             if (touch.phase == TouchPhase.Ended) {
                 lp = touch.position;
-                moving = false;
+                userIsDragging = false;
                 
                 float xDistance = Mathf.Abs(lp.x - fp.x);
                 float yDistance = Mathf.Abs(lp.y - fp.y);
