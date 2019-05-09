@@ -28,8 +28,9 @@ public class TouchHandler : MonoBehaviour
 
     int currentScreen = 1;
         
+    bool userIsDragging = false;
     // value to modify for minimum drag distance to be a swipe
-    float dragDistance = Screen.height * 0.15f;
+    float dragDistance = Screen.height * 0.25f;
 
     void Start()
     {        
@@ -55,11 +56,13 @@ public class TouchHandler : MonoBehaviour
             }
             if (touch.phase == TouchPhase.Moved) {
                 // move camera directly (no animation!)
+                moving = true;
                 float x = (fp.x - touch.position.x)/100;
                 cameraEndPosition.transform.position = originalCameraPosition + new Vector3(x, 0,0);
             }
             if (touch.phase == TouchPhase.Ended) {
                 lp = touch.position;
+                moving = false;
                 
                 float xDistance = Mathf.Abs(lp.x - fp.x);
                 float yDistance = Mathf.Abs(lp.y - fp.y);
@@ -74,11 +77,9 @@ public class TouchHandler : MonoBehaviour
                                 StopCoroutine(fade(m_Image));
                                 StartCoroutine(fade(m_Image));
                                 if (currentScreen == 1){
-                                    cameraEndPosition.transform.position = new Vector3(-100,7,0);
                                     StartCoroutine(CrossFadeAudio(song1,song0,2f,1f));
                                 }
                                 else if (currentScreen == 2){
-                                    cameraEndPosition.transform.position = new Vector3(0,7, 0);
                                     StartCoroutine(CrossFadeAudio(song2,song1,2f,1f));
                                 }
                                 currentScreen--;
@@ -88,11 +89,9 @@ public class TouchHandler : MonoBehaviour
                                 StopCoroutine(fade(m_Image));
                                 StartCoroutine(fade(m_Image));
                                 if (currentScreen == 0){
-                                    cameraEndPosition.transform.position = new Vector3(0,7,0);
                                     StartCoroutine(CrossFadeAudio(song0,song1,2f,1f));
                                 }
                                 else if (currentScreen == 1){
-                                    cameraEndPosition.transform.position = new Vector3(100,7,0);
                                     StartCoroutine(CrossFadeAudio(song1,song2,2f,1f));
                                 }
                                 currentScreen++;
@@ -106,8 +105,20 @@ public class TouchHandler : MonoBehaviour
             break;
         }
 
-        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, cameraEndPosition.transform.position, speed * Time.deltaTime);
-
+        if (!userIsDragging) {
+            if (currentScreen == 0) {
+                mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, new Vector3(-100,7,0), speed * Time.deltaTime);
+            }
+            else if(currentScreen == 1) {
+                mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, new Vector3(0,7,0), speed * Time.deltaTime);
+            }
+            else if(currentScreen == 2) {
+                mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, new Vector3(100,7,0), speed * Time.deltaTime);
+            }
+        }
+        else {
+            mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, cameraEndPosition.transform.position, speed * Time.deltaTime);
+        }
     }
 
     IEnumerator fade(Image g) {
