@@ -155,7 +155,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.Aulianyi.Breathe
     Standalone: com.Aulianyi.BreathingTest
-    iOS: com.Aulianyi.PauseTest
+    iOS: com.Aulianyi.BreathingTest
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
